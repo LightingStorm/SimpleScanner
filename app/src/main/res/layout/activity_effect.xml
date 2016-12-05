@@ -10,54 +10,53 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="#1ABC9C"
+        android:background="@color/PureGreen"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_height="80dp">
+        android:layout_height="70dp">
 
         <Button
             android:layout_width="wrap_content"
             android:text="Original"
-            android:textColor="#FFFFFF"
-            android:drawableTop="@drawable/ic_photo_white_36dp"
+            android:textColor="@color/LightWhite"
+            android:drawableTop="@drawable/ic_photo_white_24dp"
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
-            android:layout_height="70dp"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:id="@+id/btn_original"
             android:onClick="btn_original_Click"
-            />
+            android:layout_height="60dp"
+            android:layout_marginTop="4dp" />
 
         <Button
             android:layout_width="wrap_content"
             android:text="Gray Sacle"
-            android:textColor="#1A1C27"
-            android:drawableTop="@drawable/ic_filter_drama_black_36dp"
+            android:textColor="@color/NearDark"
+            android:drawableTop="@drawable/ic_filter_drama_black_24dp"
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
-            android:layout_height="70dp"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:id="@+id/btn_grayscale"
             android:onClick="btn_grayscale_Click"
-            />
+            android:layout_height="60dp"
+            android:layout_marginTop="4dp" />
 
         <Button
 
             android:layout_width="wrap_content"
-            android:text="BnW"
-            android:textColor="#1A1C27"
-            android:drawableTop="@drawable/ic_tonality_black_36dp"
+            android:textColor="@color/NearDark"
+            android:drawableTop="@drawable/ic_tonality_black_24dp"
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
-            android:layout_height="70dp"
-            android:textSize="14sp"
+            android:textSize="13sp"
             android:id="@+id/btn_blackwhite"
             android:onClick="btn_blackwhite_Click"
-            />
+            android:layout_height="60dp"
+            android:layout_marginTop="4dp" />
 
 
 
@@ -65,14 +64,14 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_height="80dp"
-        android:background="#282B39"
+        android:background="@color/SilverDark"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:layout_width="match_parent"
         android:paddingRight="16dp"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:layout_height="70dp">
 
         <Button
             android:background="@drawable/ic_arrow_back_white_48dp"
