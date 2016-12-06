@@ -63,6 +63,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:weightSum="5"
         android:orientation="horizontal"
         android:background="@color/SilverDark"
         android:layout_alignParentBottom="true"
@@ -74,6 +75,7 @@
         android:layout_height="70dp">
 
         <Button
+            android:layout_weight="1"
             android:background="@drawable/ic_arrow_back_white_48dp"
             android:layout_gravity="center"
             android:layout_marginLeft="14dp"
@@ -83,6 +85,7 @@
             android:id="@+id/btn_back" />
 
         <Button
+            android:layout_weight="1"
             android:background="@drawable/ic_rotate_left_white_48dp"
             android:layout_gravity="center"
             android:layout_marginLeft="14dp"
@@ -92,6 +95,7 @@
             android:id="@+id/btn_rotateleft" />
 
         <Button
+            android:layout_weight="1"
             android:background="@drawable/ic_rotate_right_white_48dp"
             android:layout_gravity="center"
             android:layout_marginLeft="14dp"
@@ -101,9 +105,10 @@
             android:id="@+id/btn_rotateright" />
 
         <Button
+            android:layout_weight="1"
             android:background="@android:color/transparent"
             android:textColor="#FFFFFF"
-            android:text="A4"
+            android:text="@string/a4"
             android:textSize="26dp"
             android:layout_gravity="center"
             android:layout_marginLeft="14dp"
@@ -113,6 +118,7 @@
             android:id="@+id/btn_a4" />
 
         <Button
+            android:layout_weight="1"
             android:background="@drawable/ic_check_white_48dp"
             android:layout_gravity="center"
             android:layout_marginLeft="14dp"
