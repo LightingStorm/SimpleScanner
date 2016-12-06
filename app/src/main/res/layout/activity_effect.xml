@@ -10,7 +10,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="@color/PureGreen"
+        android:background="@color/LightSeaGreen"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -19,7 +19,7 @@
         <Button
             android:layout_width="wrap_content"
             android:text="Original"
-            android:textColor="@color/LightWhite"
+            android:textColor="@color/WhiteSmoke"
             android:drawableTop="@drawable/ic_photo_white_24dp"
             android:background="@android:color/transparent"
 
@@ -32,8 +32,8 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:text="Gray Sacle"
-            android:textColor="@color/NearDark"
+            android:text="Gray Scale"
+            android:textColor="@color/BlackRusian"
             android:drawableTop="@drawable/ic_filter_drama_black_24dp"
             android:background="@android:color/transparent"
 
@@ -47,7 +47,8 @@
         <Button
 
             android:layout_width="wrap_content"
-            android:textColor="@color/NearDark"
+            android:text="B&amp;W"
+            android:textColor="@color/BlackRusian"
             android:drawableTop="@drawable/ic_tonality_black_24dp"
             android:background="@android:color/transparent"
 
@@ -65,7 +66,7 @@
     <LinearLayout
         android:weightSum="5"
         android:orientation="horizontal"
-        android:background="@color/SilverDark"
+        android:background="@color/MidnightExpress"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
