@@ -15,7 +15,7 @@ tools:context="lightingstorm.io.simplescanner.CameraActivity">
             android:layout_alignParentStart="false"
             android:layout_width="match_parent"
             android:gravity="center"
-            android:layout_height="50dp">
+            android:layout_height="70dp">
 
             <Button
                 android:layout_weight="0.4"

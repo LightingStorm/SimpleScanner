@@ -5,67 +5,74 @@
     android:id="@+id/activity_custom"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
     tools:context="lightingstorm.io.simplescanner.CropActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/linearLayout">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="394dp"
+            android:layout_height="match_parent"
             app:srcCompat="@mipmap/ic_launcher"
             android:id="@+id/imageView4" />
     </LinearLayout>
 
     <LinearLayout
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/MidnightExpress"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:weightSum="5"
-        android:padding="13dp"
-        android:paddingBottom="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_height="80dp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_height="70dp"
+        android:id="@+id/linearLayout">
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_back"
             android:elevation="0dp"
             android:background="@drawable/ic_arrow_back_white_36dp"
             android:layout_height="36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp" />
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_roundleft"
             android:elevation="0dp"
             android:background="@drawable/ic_rotate_left_white_36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_height="36dp"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp" />
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_roundright"
             android:elevation="0dp"
             android:background="@drawable/ic_rotate_right_white_36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_height="36dp"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp" />
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_fill"
             android:elevation="0dp"
             android:background="@drawable/ic_fullscreen_white_36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_height="36dp"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
@@ -76,8 +83,8 @@
             android:elevation="0dp"
             android:background="@drawable/ic_check_white_36dp"
             android:layout_width="36dp"
-            android:layout_centerVertical="true"
-            android:layout_weight="0.17"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:layout_height="36dp"
             android:layout_marginEnd="14dp"
             android:layout_marginStart="14dp" />
