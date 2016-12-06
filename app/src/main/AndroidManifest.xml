@@ -17,7 +17,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".EffectActivity" />
 		<activity android:name=".CameraActivity" />
-        <activity android:name=".CropActivity">
+		<activity android:name=".CropActivity" />
+        <activity android:name=".NamedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
