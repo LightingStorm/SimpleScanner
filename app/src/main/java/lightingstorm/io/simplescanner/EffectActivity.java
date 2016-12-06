@@ -20,7 +20,8 @@ public class EffectActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_effect);
 
@@ -68,7 +69,7 @@ public class EffectActivity extends Activity {
         Button btn_grayscale = (Button) this.findViewById(R.id.btn_grayscale);
         Drawable d = getResources().getDrawable(R.drawable.ic_filter_drama_black_24dp);
         btn_grayscale.setCompoundDrawablesWithIntrinsicBounds(null,d,null,null);
-        btn_grayscale.setTextColor(getResources().getColor(R.color.LightWhite));
+        btn_grayscale.setTextColor(getResources().getColor(R.color.NearDark));
 
         Button btn_original = (Button) this.findViewById(R.id.btn_original);
         d = getResources().getDrawable(R.drawable.ic_photo_size_select_actual_black_24dp);
@@ -78,6 +79,6 @@ public class EffectActivity extends Activity {
         Button btn_blackwhite = (Button) this.findViewById(R.id.btn_blackwhite);
         d = getResources().getDrawable(R.drawable.ic_tonality_white_24dp);
         btn_blackwhite.setCompoundDrawablesWithIntrinsicBounds(null,d,null,null);
-        btn_blackwhite.setTextColor(getResources().getColor(R.color.NearDark));
+        btn_blackwhite.setTextColor(getResources().getColor(R.color.LightWhite));
     }
 }
