@@ -14,9 +14,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:weightSum="3"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
         android:layout_height="70dp">
 
         <Button
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:text="Original"
             android:textColor="@color/WhiteSmoke"
@@ -24,13 +28,14 @@
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:id="@+id/btn_original"
             android:onClick="btn_original_Click"
             android:layout_height="60dp"
             android:layout_marginTop="4dp" />
 
         <Button
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:text="Gray Scale"
             android:textColor="@color/BlackRusian"
@@ -38,14 +43,14 @@
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:id="@+id/btn_grayscale"
             android:onClick="btn_grayscale_Click"
             android:layout_height="60dp"
             android:layout_marginTop="4dp" />
 
         <Button
-
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:text="B&amp;W"
             android:textColor="@color/BlackRusian"
@@ -53,7 +58,7 @@
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:id="@+id/btn_blackwhite"
             android:onClick="btn_blackwhite_Click"
             android:layout_height="60dp"
