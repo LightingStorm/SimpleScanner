@@ -4,11 +4,9 @@
     <color name="colorPrimaryDark">#212121</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="NearDark">#1A1C27</color>
-    <color name="SilverDark">#282B39</color>
-    <color name="PureGreen">#1ABC9C</color>
-    <color name="LightWhite">#F2F2F2</color>
-
-
-
+    <color name="BlackRusian">#1A1C27</color>
+    <color name="MidnightExpress">#282B39</color>
+    <color name="Nero">#212121</color>
+    <color name="LightSeaGreen">#1ABC9C</color>
+    <color name="WhiteSmoke">#F2F2F2</color>
 </resources>
