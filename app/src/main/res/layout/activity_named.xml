@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_named"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="lightingstorm.io.simplescanner.NamedActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutNamedTextBox"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:background="@color/MidnightExpress"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:weightSum="5">
+
+        <android.inputmethodservice.ExtractEditText
+            android:id="@+id/txt_name_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:backgroundTint="@color/WhiteSmoke"
+            android:textColor="@color/WhiteSmoke" />
+
+        <Button
+            android:id="@+id/btn_checkNamed"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_check_white_48dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UnknownIdInLayout"
+        android:layout_below="@+id/linearLayoutNamedTextBox"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/imageViewNamed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@mipmap/ic_launcher"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+
+</RelativeLayout>
