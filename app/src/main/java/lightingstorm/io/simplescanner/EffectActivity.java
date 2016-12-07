@@ -19,15 +19,9 @@ public class EffectActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_effect);
-
-        Button btn_blackwhite = (Button)findViewById(R.id.btn_blackwhite);
-        btn_blackwhite.setText("B&W");
-
 
     }
 
