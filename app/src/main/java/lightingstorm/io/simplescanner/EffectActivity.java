@@ -3,9 +3,12 @@ package lightingstorm.io.simplescanner;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +49,12 @@ public class EffectActivity extends Activity {
         Drawable d3 = getResources().getDrawable(R.drawable.ic_tonality_black_24dp);
         btn_blackwhite.setCompoundDrawablesWithIntrinsicBounds(null,d3,null,null);
         btn_blackwhite.setTextColor(getResources().getColor(R.color.BlackRusian));
+
+        //Process
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+        BitmapDrawable ob = new BitmapDrawable(getResources(), (new ImageViewHelper_Effect().convertToOriginal(iv,this)));
+        iv.setBackgroundDrawable(ob);
+
     }
 
     public void btn_grayscale_Click(View view){
@@ -64,6 +73,7 @@ public class EffectActivity extends Activity {
         btn_blackwhite.setCompoundDrawablesWithIntrinsicBounds(null,d,null,null);
         btn_blackwhite.setTextColor(getResources().getColor(R.color.BlackRusian));
 
+        //Process
         ImageView iv = (ImageView) this.findViewById(R.id.imageView);
         BitmapDrawable ob = new BitmapDrawable(getResources(), (new ImageViewHelper_Effect().convertToGrayScale(iv,this)));
         iv.setBackgroundDrawable(ob);
@@ -85,5 +95,9 @@ public class EffectActivity extends Activity {
         d = getResources().getDrawable(R.drawable.ic_tonality_white_24dp);
         btn_blackwhite.setCompoundDrawablesWithIntrinsicBounds(null,d,null,null);
         btn_blackwhite.setTextColor(getResources().getColor(R.color.WhiteSmoke));
+
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+        BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).convertToBlackAndWhite(iv,this));
+        iv.setBackgroundDrawable(ob);
     }
 }
