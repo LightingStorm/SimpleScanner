@@ -20,7 +20,7 @@ import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
 
 public class EffectActivity extends Activity {
 
-    public ImageView original = (ImageView) this.findViewById(R.id.imageView);
+    //public ImageView original = (ImageView) this.findViewById(R.id.imageView);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
