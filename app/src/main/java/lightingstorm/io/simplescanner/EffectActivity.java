@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +14,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+
+import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
 
 public class EffectActivity extends Activity {
+
+    public ImageView original = (ImageView) this.findViewById(R.id.imageView);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,11 @@ public class EffectActivity extends Activity {
         d = getResources().getDrawable(R.drawable.ic_tonality_black_24dp);
         btn_blackwhite.setCompoundDrawablesWithIntrinsicBounds(null,d,null,null);
         btn_blackwhite.setTextColor(getResources().getColor(R.color.BlackRusian));
+
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+        BitmapDrawable ob = new BitmapDrawable(getResources(), (new ImageViewHelper_Effect().convertToGrayScale(iv,this)));
+        iv.setBackgroundDrawable(ob);
+
     }
 
     public void btn_blackwhite_Click(View view){
