@@ -144,6 +144,6 @@
         android:layout_marginBottom="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@mipmap/ic_launcher" />
+        android:background="@mipmap/test3" />
 
 </RelativeLayout>
