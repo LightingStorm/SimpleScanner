@@ -1,14 +1,17 @@
 package lightingstorm.io.simplescanner.process;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -22,8 +25,13 @@ import lightingstorm.io.simplescanner.R;
 public class ImageViewHelper_Effect {
 
     private static ImageViewHelper_Effect instance = new ImageViewHelper_Effect();
+    private static int status = -1;
+    private static int rotate_left=0;
+    private static int rotate_right=0;
+
 
     public ImageViewHelper_Effect(){}
+
 
     public ImageViewHelper_Effect getInstance(){
         return instance;
@@ -37,10 +45,13 @@ public class ImageViewHelper_Effect {
             original_save = new ImageView(ea);
             original_save = iv;
         }
+        else {
+            original_save = iv;
+        }
+
 
         iv.buildDrawingCache();
         Bitmap bmpOriginal = iv.getDrawingCache();
-
 
         int width, height;
         height = bmpOriginal.getHeight();
@@ -58,14 +69,20 @@ public class ImageViewHelper_Effect {
         c.drawBitmap(bmpOriginal, 0, 0, paint);
 
 
+        //return bmpGrayscale;
 
-        return bmpGrayscale;
+        Matrix matrix = new Matrix();
+        matrix.setRotate(-90*rotate_left + 90*rotate_right);
+        status = 1;
+        return Bitmap.createBitmap(bmpGrayscale,0,0,width,height,matrix,true);
     }
-
 
     public Bitmap convertToOriginal(ImageView iv,EffectActivity ea){
         if (original_save==null){
             original_save = new ImageView(ea);
+            original_save = iv;
+        }
+        else {
             original_save = iv;
         }
 
@@ -84,12 +101,23 @@ public class ImageViewHelper_Effect {
         ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
         paint.setColorFilter(f);
         c.drawBitmap(bmpOriginal, 0, 0, paint);
-        return out;
+
+        //return out;
+
+        Matrix matrix = new Matrix();
+        matrix.setRotate(-90*rotate_left + 90*rotate_right);
+        status = 0;
+        return Bitmap.createBitmap(out,0,0,width,height,matrix,true);
     }
 
     public Bitmap convertToBlackAndWhite(ImageView iv , EffectActivity ea){
+
+
         if (original_save==null){
             original_save = new ImageView(ea);
+            original_save = iv;
+        }
+        else {
             original_save = iv;
         }
 
@@ -135,7 +163,78 @@ public class ImageViewHelper_Effect {
             }
         }
 
-        return bmOut;
+        //return bmOut;
+
+        Matrix matrix = new Matrix();
+        matrix.setRotate(-90*rotate_left + 90*rotate_right);
+        status = 2;
+        return Bitmap.createBitmap(bmOut,0,0,width,height,matrix,true);
     }
+
+    public Bitmap rotateleftImage(ImageView iv , EffectActivity ea) {
+
+        if (original_save==null){
+            original_save = new ImageView(ea);
+            original_save = iv;
+        }
+        else {
+            original_save = iv;
+        }
+
+
+
+        //iv.buildDrawingCache();
+        //Bitmap src = iv.getDrawingCache();
+        //Matrix matrix = new Matrix();
+        //matrix.setRotate(-90-90*rotate_left);
+
+        rotate_left++;
+        Bitmap out = null;
+        if (status==0){
+            out = convertToOriginal(iv,ea);
+        }
+        else if (status==1){
+            out = convertToGrayScale(iv,ea);
+        }
+        else if(status==2){
+            out = convertToBlackAndWhite(iv,ea);
+        }
+        else
+            out = convertToOriginal(iv,ea);
+        return out;
+    }
+
+    public Bitmap rotaterightImage(ImageView iv , EffectActivity ea) {
+
+        if (original_save==null){
+            original_save = new ImageView(ea);
+            original_save = iv;
+        }
+        else {
+            original_save = iv;
+        }
+
+        //iv.buildDrawingCache();
+        //Bitmap src = iv.getDrawingCache();
+        //Matrix matrix = new Matrix();
+        //matrix.setRotate(-90-90*rotate_left);
+
+        rotate_right++;
+        Bitmap out = null;
+        if (status==0){
+            out = convertToOriginal(iv,ea);
+        }
+        else if (status==1){
+            out = convertToGrayScale(iv,ea);
+        }
+        else if(status==2){
+            out = convertToBlackAndWhite(iv,ea);
+        }
+        else
+            out = convertToOriginal(iv,ea);
+        return out;
+    }
+
 }
+
 

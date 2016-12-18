@@ -99,7 +99,8 @@
             android:layout_marginRight="14dp"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:id="@+id/btn_rotateleft" />
+            android:id="@+id/btn_rotateleft"
+            android:onClick="btn_rotateleft"/>
 
         <Button
             android:layout_weight="1"
@@ -109,7 +110,8 @@
             android:layout_marginRight="14dp"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:id="@+id/btn_rotateright" />
+            android:id="@+id/btn_rotateright"
+            android:onClick="btn_rotateright"/>
 
         <Button
             android:layout_weight="1"
