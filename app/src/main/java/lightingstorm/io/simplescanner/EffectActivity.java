@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -97,7 +98,27 @@ public class EffectActivity extends Activity {
         btn_blackwhite.setTextColor(getResources().getColor(R.color.WhiteSmoke));
 
         ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+
         BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).convertToBlackAndWhite(iv,this));
         iv.setBackgroundDrawable(ob);
     }
+
+    public void btn_rotateleft(View view){
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+        //iv.setImageBitmap(new ImageViewHelper_Effect().rotateImage(iv,this,270));
+
+        BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).rotateleftImage(iv,this));
+        iv.setBackgroundDrawable(null);
+        iv.setBackgroundDrawable(ob);
+    }
+
+    public void btn_rotateright(View view){
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+        //iv.setImageBitmap(new ImageViewHelper_Effect().rotateImage(iv,this,270));
+
+        BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).rotaterightImage(iv,this));
+        iv.setBackgroundDrawable(null);
+        iv.setBackgroundDrawable(ob);
+    }
+
 }
