@@ -89,7 +89,8 @@
             android:layout_marginRight="14dp"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:id="@+id/btn_back" />
+            android:id="@+id/btn_back"
+            android:onClick="btn_back"/>
 
         <Button
             android:layout_weight="1"
@@ -124,7 +125,8 @@
             android:layout_marginRight="14dp"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:id="@+id/btn_a4" />
+            android:id="@+id/btn_a4"
+            android:onClick="scaleToA4"/>
 
         <Button
             android:layout_weight="1"
@@ -134,7 +136,8 @@
             android:layout_marginRight="14dp"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:id="@+id/btn_checkmark" />
+            android:id="@+id/btn_checkmark"
+            android:onClick="btn_checkmark"/>
 
     </LinearLayout>
 
@@ -146,6 +149,6 @@
         android:layout_marginBottom="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@mipmap/test3" />
+        android:background="@drawable/tuananh" />
 
 </RelativeLayout>
