@@ -144,4 +144,5 @@ public class CropActivity extends AppCompatActivity {
         '/'+ context.getResources().getResourceEntryName(ID));
         return imageUri;
     }
+
 }
