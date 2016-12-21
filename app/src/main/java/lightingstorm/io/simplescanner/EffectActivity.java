@@ -228,9 +228,13 @@ public class EffectActivity extends Activity {
         Bitmap b = ((BitmapDrawable)dr).getBitmap();
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, width, height, true);
         dr = new BitmapDrawable(bitmapResized);
+
         Var.iv_tranfer = new ImageView(this);
         Var.iv_tranfer.setBackgroundDrawable(dr);
         Var.list_iv.add(Var.iv_tranfer);
+
+        Intent intent = new Intent(this,NamedActivity.class);
+        startActivity(intent);
         return;
         //Bitmap scaledown =
     }
