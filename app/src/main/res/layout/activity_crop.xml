@@ -5,79 +5,102 @@
     android:id="@+id/activity_custom"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
     tools:context="lightingstorm.io.simplescanner.CropActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/linearLayout"
+        android:orientation="horizontal">
 
-        <ImageView
+        <com.isseiaoki.simplecropview.CropImageView
+            android:id="@+id/cropImageView"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:layout_width="match_parent"
-            android:layout_height="394dp"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/imageView4" />
+            android:layout_height="match_parent"
+            app:scv_crop_mode="fit_image"
+            app:scv_frame_color="@color/colorAccent"
+            app:scv_handle_size="14dp"
+            app:scv_touch_padding="8dp"
+            app:scv_handle_show_mode="show_always"
+            app:scv_guide_show_mode="show_always"
+            app:scv_min_frame_size="50dp"
+            app:scv_frame_stroke_weight="1dp"
+            app:scv_guide_stroke_weight="1dp"/>
+
     </LinearLayout>
 
     <LinearLayout
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/MidnightExpress"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:weightSum="5"
-        android:padding="13dp"
-        android:paddingBottom="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
         android:layout_alignParentBottom="true"
-        android:layout_height="80dp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_height="70dp"
+        android:id="@+id/linearLayout">
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_back"
             android:elevation="0dp"
             android:background="@drawable/ic_arrow_back_white_36dp"
             android:layout_height="36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp" />
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_roundleft"
             android:elevation="0dp"
             android:background="@drawable/ic_rotate_left_white_36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_height="36dp"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp" />
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_roundright"
             android:elevation="0dp"
             android:background="@drawable/ic_rotate_right_white_36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_height="36dp"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp" />
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_fill"
             android:elevation="0dp"
             android:background="@drawable/ic_fullscreen_white_36dp"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
             android:layout_height="36dp"
             android:layout_width="36dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginStart="15dp" />
+            android:layout_marginStart="15dp"
+            style="@style/Widget.AppCompat.Button" />
 
         <Button
             android:id="@+id/btn_complete"
             android:elevation="0dp"
             android:background="@drawable/ic_check_white_36dp"
             android:layout_width="36dp"
-            android:layout_centerVertical="true"
-            android:layout_weight="0.17"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:layout_height="36dp"
             android:layout_marginEnd="14dp"
             android:layout_marginStart="14dp" />
