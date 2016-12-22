@@ -12,6 +12,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -36,6 +38,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
+import lightingstorm.io.simplescanner.process.Var;
 
 public class CropActivity extends AppCompatActivity {
 
@@ -49,6 +52,7 @@ public class CropActivity extends AppCompatActivity {
     Button fill;
     Button rotateLeft;
     Button rotateRight;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +67,21 @@ public class CropActivity extends AppCompatActivity {
         rotateLeft = (Button)findViewById(R.id.btn_roundleft);
         rotateRight = (Button)findViewById(R.id.btn_roundright);
 
-        imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                "://" + getResources().getResourcePackageName(R.drawable.tuananh)+
-                '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
-                '/'+ getResources().getResourceEntryName(R.drawable.tuananh));
+        //imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+         //       "://" + getResources().getResourcePackageName(R.drawable.tuananh)+
+         //       '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
+         //       '/'+ getResources().getResourceEntryName(R.drawable.tuananh));
+
+
+        //test
+        BitmapDrawable bd = (BitmapDrawable)Var.iv_tranfer.getDrawable();
+        Bitmap bm = bd.getBitmap();
+        imageUri = getImageUri(this, bm);
+        //
+
         cr.setImageURI(imageUri);
         cr.setInitialFrameScale(0.5f);
+        cr.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
         fill.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +106,7 @@ public class CropActivity extends AppCompatActivity {
                 cr.rotateImage(CropImageView.RotateDegrees.ROTATE_90D);
             }
         });
+
     }
 
 
@@ -143,6 +157,17 @@ public class CropActivity extends AppCompatActivity {
         '/'+ context.getResources().getResourceTypeName(ID)+
         '/'+ context.getResources().getResourceEntryName(ID));
         return imageUri;
+    }
+
+    //Load URI từ bitmap
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap temp = Bitmap.createBitmap(inImage);
+
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(temp,600,900, true);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmapResized.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), bitmapResized, "Title",null);
+        return Uri.parse(path);
     }
 
 }
