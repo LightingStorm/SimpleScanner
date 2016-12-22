@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -29,6 +30,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.isseiaoki.simplecropview.CropImageView;
+import com.isseiaoki.simplecropview.callback.CropCallback;
+import com.isseiaoki.simplecropview.callback.LoadCallback;
+import com.isseiaoki.simplecropview.callback.SaveCallback;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -36,6 +40,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
+import lightingstorm.io.simplescanner.process.Var;
 
 public class CropActivity extends AppCompatActivity {
 
@@ -43,12 +48,15 @@ public class CropActivity extends AppCompatActivity {
     ImageView hinh;
     CropImageView cr;
 
-    private Bitmap picBM;
+    Bitmap picBM;
     final int CAMERA_CAPTURE = 1;
     //xử lý button
     Button fill;
     Button rotateLeft;
     Button rotateRight;
+    Button btn_com;
+    CropCallback cropCallback;
+    SaveCallback saveCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,13 +70,19 @@ public class CropActivity extends AppCompatActivity {
         fill = (Button)findViewById(R.id.btn_fill);
         rotateLeft = (Button)findViewById(R.id.btn_roundleft);
         rotateRight = (Button)findViewById(R.id.btn_roundright);
+        btn_com = (Button)findViewById(R.id.btn_complete);
 
         imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + getResources().getResourcePackageName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceEntryName(R.drawable.tuananh));
-        cr.setImageURI(imageUri);
-        cr.setInitialFrameScale(0.5f);
+        cr.startLoad(imageUri,new LoadCallback() {
+            @Override
+            public void onSuccess() {}
+
+            @Override
+            public void onError() {}}
+            );
 
 
         fill.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +107,20 @@ public class CropActivity extends AppCompatActivity {
                 cr.rotateImage(CropImageView.RotateDegrees.ROTATE_90D);
             }
         });
+
+        btn_com.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CropActivity.this,AfterCrop.class);
+                //ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                //cr.getCroppedBitmap().compress(Bitmap.CompressFormat.PNG,100,stream);
+                //byte[] bytes = stream.toByteArray();
+                intent.putExtra("ImageCrop",cr.getCroppedBitmap());
+
+                startActivity(intent);
+            }
+        });
+
     }
 
 
