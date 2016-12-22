@@ -44,6 +44,7 @@ import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
 import lightingstorm.io.simplescanner.process.Var;
 
 public class CropActivity extends AppCompatActivity {
+    private Context context;
 
     Uri imageUri;
     ImageView hinh;
@@ -61,9 +62,11 @@ public class CropActivity extends AppCompatActivity {
     SaveCallback saveCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop);
 
+        context=this;
 
         //gọi vào image trong layout
 
@@ -91,6 +94,7 @@ public class CropActivity extends AppCompatActivity {
         cr.setInitialFrameScale(0.5f);
         cr.setScaleType(ImageView.ScaleType.FIT_XY);
 
+        /*
         imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + getResources().getResourcePackageName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
@@ -102,7 +106,7 @@ public class CropActivity extends AppCompatActivity {
             @Override
             public void onError() {}}
             );
-
+        */
 
 
         fill.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +136,12 @@ public class CropActivity extends AppCompatActivity {
         btn_com.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
- //               Intent intent = new Intent(CropActivity.this,AfterCrop.class);
+                Bitmap photo = cr.getCroppedBitmap();
+                Drawable drawable = new BitmapDrawable(photo);
+                Var.iv_tranfer.setBackground(drawable);
+                Intent intent = new Intent(context,EffectActivity.class);
+                startActivity(intent);
+ //
                 //ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 //cr.getCroppedBitmap().compress(Bitmap.CompressFormat.PNG,100,stream);
                 //byte[] bytes = stream.toByteArray();

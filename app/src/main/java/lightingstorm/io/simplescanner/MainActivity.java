@@ -107,36 +107,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == TAKE_PHOTO_CODE && resultCode == Activity.RESULT_OK) {
+            //Đọc file từ path , chuyển file sang dạng Bitmap
             File image = new File(path);
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+            //delete
+            image.deleteOnExit();
 
+            //Lưu Bitmap vào Var (biến tạm)
             Var.iv_tranfer = new ImageView(this);
             Var.iv_tranfer.setImageBitmap(bitmap);
             Drawable bg = new BitmapDrawable(bitmap);
             Var.iv_tranfer.setBackgroundDrawable(bg);
+
+            //Chuyển sang màn hình Crop
             Intent intent = new Intent(this,CropActivity.class);
             startActivity(intent);
-            /*
-            check = true;
-
-            timerTask = new TimerTask() {
-                @Override
-                public void run() {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (check==true){
-                                //timer.cancel();
-                                Intent intent = new Intent(context,CropActivity.class);
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                }
-            };
-            timer.schedule(timerTask, 1000);
-            */
         }
     }
 
