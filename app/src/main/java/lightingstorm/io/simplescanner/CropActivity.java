@@ -90,15 +90,17 @@ public class CropActivity extends AppCompatActivity {
         imageUri = getImageUri(this, bm);
         //
 
-        cr.setImageURI(imageUri);
-        cr.setInitialFrameScale(0.5f);
         cr.setScaleType(ImageView.ScaleType.FIT_XY);
+        cr.setImageURI(imageUri);
+        //cr.setInitialFrameScale(0.5f);
+        //cr.setScaleType(ImageView.ScaleType.FIT_XY);
 
         /*
         imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + getResources().getResourcePackageName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceEntryName(R.drawable.tuananh));
+        */
         cr.startLoad(imageUri,new LoadCallback() {
             @Override
             public void onSuccess() {}
@@ -106,7 +108,7 @@ public class CropActivity extends AppCompatActivity {
             @Override
             public void onError() {}}
             );
-        */
+
 
 
         fill.setOnClickListener(new View.OnClickListener() {
@@ -205,9 +207,7 @@ public class CropActivity extends AppCompatActivity {
 
     //Load URI từ bitmap
     public Uri getImageUri(Context inContext, Bitmap inImage) {
-        Bitmap temp = Bitmap.createBitmap(inImage);
-
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(temp,600,900, true);
+        Bitmap bitmapResized = Bitmap.createBitmap(inImage);
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmapResized.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), bitmapResized, "Title",null);

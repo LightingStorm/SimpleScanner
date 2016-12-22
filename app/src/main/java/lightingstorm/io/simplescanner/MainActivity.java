@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.*;
@@ -15,9 +16,12 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.isseiaoki.simplecropview.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,10 +34,7 @@ import lightingstorm.io.simplescanner.process.Var;
 import static lightingstorm.io.simplescanner.R.id.imageView;
 
 public class MainActivity extends AppCompatActivity {
-
-    final Handler handler = new Handler();
-    final Timer timer = new Timer();
-    TimerTask timerTask;
+    
     private Context context;
     final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/ImgTmp/";
     int TAKE_PHOTO_CODE = 0;
@@ -49,25 +50,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        context=this;
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (check==true){
-                            //timer.cancel();
-                            Intent intent = new Intent(context,CropActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-                });
-            }
-        };
-        timer.schedule(timerTask, 60000);
-        */
         // Here, we are making a folder named picFolder to store
         // pics taken by the camera using this application.
 

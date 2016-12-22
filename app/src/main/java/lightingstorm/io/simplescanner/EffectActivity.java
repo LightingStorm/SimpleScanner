@@ -48,7 +48,7 @@ public class EffectActivity extends Activity {
 
         ImageView iv = (ImageView) this.findViewById(R.id.imageView);
         iv.setBackground(Var.iv_tranfer.getBackground());
-        
+
         width=((ImageView)this.findViewById(R.id.imageView)).getWidth();
         height=((ImageView)this.findViewById(R.id.imageView)).getHeight();
 
