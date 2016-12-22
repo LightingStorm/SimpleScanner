@@ -111,13 +111,13 @@ public class CropActivity extends AppCompatActivity {
         btn_com.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CropActivity.this,AfterCrop.class);
+ //               Intent intent = new Intent(CropActivity.this,AfterCrop.class);
                 //ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 //cr.getCroppedBitmap().compress(Bitmap.CompressFormat.PNG,100,stream);
                 //byte[] bytes = stream.toByteArray();
-                intent.putExtra("ImageCrop",cr.getCroppedBitmap());
+//                intent.putExtra("ImageCrop",cr.getCroppedBitmap());
 
-                startActivity(intent);
+//                startActivity(intent);
             }
         });
 
