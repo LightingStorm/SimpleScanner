@@ -12,6 +12,7 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -29,6 +31,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.isseiaoki.simplecropview.CropImageView;
+import com.isseiaoki.simplecropview.callback.CropCallback;
+import com.isseiaoki.simplecropview.callback.LoadCallback;
+import com.isseiaoki.simplecropview.callback.SaveCallback;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -36,24 +41,32 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
+import lightingstorm.io.simplescanner.process.Var;
 
 public class CropActivity extends AppCompatActivity {
+    private Context context;
 
     Uri imageUri;
     ImageView hinh;
     CropImageView cr;
 
-    private Bitmap picBM;
+    Bitmap picBM;
     final int CAMERA_CAPTURE = 1;
     //xử lý button
     Button fill;
     Button rotateLeft;
     Button rotateRight;
+
+    Button btn_com;
+    CropCallback cropCallback;
+    SaveCallback saveCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop);
 
+        context=this;
 
         //gọi vào image trong layout
 
@@ -62,13 +75,40 @@ public class CropActivity extends AppCompatActivity {
         fill = (Button)findViewById(R.id.btn_fill);
         rotateLeft = (Button)findViewById(R.id.btn_roundleft);
         rotateRight = (Button)findViewById(R.id.btn_roundright);
+        btn_com = (Button)findViewById(R.id.btn_complete);
 
+
+        //imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+         //       "://" + getResources().getResourcePackageName(R.drawable.tuananh)+
+         //       '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
+         //       '/'+ getResources().getResourceEntryName(R.drawable.tuananh));
+
+
+        //test
+        BitmapDrawable bd = (BitmapDrawable)Var.iv_tranfer.getDrawable();
+        Bitmap bm = bd.getBitmap();
+        imageUri = getImageUri(this, bm);
+        //
+
+        cr.setScaleType(ImageView.ScaleType.FIT_XY);
+        cr.setImageURI(imageUri);
+        //cr.setInitialFrameScale(0.5f);
+        //cr.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        /*
         imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + getResources().getResourcePackageName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceEntryName(R.drawable.tuananh));
-        cr.setImageURI(imageUri);
-        cr.setInitialFrameScale(0.5f);
+        */
+        cr.startLoad(imageUri,new LoadCallback() {
+            @Override
+            public void onSuccess() {}
+
+            @Override
+            public void onError() {}}
+            );
+
 
 
         fill.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +133,26 @@ public class CropActivity extends AppCompatActivity {
                 cr.rotateImage(CropImageView.RotateDegrees.ROTATE_90D);
             }
         });
+
+
+        btn_com.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap photo = cr.getCroppedBitmap();
+                Drawable drawable = new BitmapDrawable(photo);
+                Var.iv_tranfer.setBackground(drawable);
+                Intent intent = new Intent(context,EffectActivity.class);
+                startActivity(intent);
+ //
+                //ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                //cr.getCroppedBitmap().compress(Bitmap.CompressFormat.PNG,100,stream);
+                //byte[] bytes = stream.toByteArray();
+//                intent.putExtra("ImageCrop",cr.getCroppedBitmap());
+
+//                startActivity(intent);
+            }
+        });
+
     }
 
 
@@ -143,6 +203,15 @@ public class CropActivity extends AppCompatActivity {
         '/'+ context.getResources().getResourceTypeName(ID)+
         '/'+ context.getResources().getResourceEntryName(ID));
         return imageUri;
+    }
+
+    //Load URI từ bitmap
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap bitmapResized = Bitmap.createBitmap(inImage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmapResized.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), bitmapResized, "Title",null);
+        return Uri.parse(path);
     }
 
 }

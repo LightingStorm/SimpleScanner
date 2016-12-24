@@ -46,6 +46,9 @@ public class EffectActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_effect);
 
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+        iv.setBackground(Var.iv_tranfer.getBackground());
+
         width=((ImageView)this.findViewById(R.id.imageView)).getWidth();
         height=((ImageView)this.findViewById(R.id.imageView)).getHeight();
 
