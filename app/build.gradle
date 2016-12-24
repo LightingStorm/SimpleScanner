@@ -28,4 +28,5 @@ dependencies {
     compile 'com.github.IsseiAoki:SimpleCropView:v1.1.4'
     compile 'com.itextpdf:itextg:5.5.9'
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:design:23.2.0'
 }
