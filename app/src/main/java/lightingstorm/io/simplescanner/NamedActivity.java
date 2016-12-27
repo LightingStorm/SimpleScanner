@@ -1,6 +1,7 @@
 package lightingstorm.io.simplescanner;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,71 +9,29 @@ import android.graphics.drawable.Drawable;
 //import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Image;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Date;
 import java.util.Scanner;
-
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chapter;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Section;
-import com.itextpdf.text.pdf.PdfImportedPage;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfWriter;
-
-import android.app.Activity;
-import android.os.Bundle;
 import android.os.Environment;
 import android.widget.TextView;
 
 import lightingstorm.io.simplescanner.process.Var;
 
 public class NamedActivity extends Activity {
-    private static String FILE;
-    private static File FOLDER_PDF_SCANNER;
+    public static String FILE;
+    public static File FOLDER_PDF_SCANNER;
     TextView txtFileName;
 
     @Override
@@ -149,7 +108,7 @@ public class NamedActivity extends Activity {
         txtFileName = (TextView) findViewById(R.id.txt_name_file);
         NamedActivity.FILE = FOLDER_PDF_SCANNER + File.separator + txtFileName.getText().toString() + ".pdf";
         saveFilePdf();
-
+        goToPdfView();
     }
 
     public  void openFile(){
@@ -157,6 +116,11 @@ public class NamedActivity extends Activity {
         Scanner input = new Scanner(FILE);
     }
 
+    public void goToPdfView(){
+        Intent intent = new Intent(this,PdfviewActivity.class);
+        startActivity(intent);
+        return;
+    }
     public void goToMain(){
         
     }

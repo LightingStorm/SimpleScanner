@@ -40,6 +40,9 @@
         <activity android:name=".NamedActivity">
 
         </activity>
+        <activity android:name=".PdfviewActivity">
+
+        </activity>
     </application>
 
 </manifest>
