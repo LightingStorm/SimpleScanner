@@ -34,7 +34,7 @@ import lightingstorm.io.simplescanner.process.Var;
 import static lightingstorm.io.simplescanner.R.id.imageView;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     private Context context;
     final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/ImgTmp/";
     int TAKE_PHOTO_CODE = 0;
