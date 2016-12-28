@@ -13,25 +13,22 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import com.isseiaoki.simplecropview.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import lightingstorm.io.simplescanner.process.Var;
-
-import static lightingstorm.io.simplescanner.R.id.imageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         // Here, we are making a folder named picFolder to store
@@ -56,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
         File newdir = new File(dir);
         newdir.mkdirs();
 
-        Button capture = (Button) findViewById(R.id.btn_take_photo);
-        capture.setOnClickListener(new View.OnClickListener() {
+
+        FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.btn_take_photo);
+        myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 //Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);

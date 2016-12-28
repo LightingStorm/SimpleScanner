@@ -78,4 +78,5 @@
     <string name="one">1</string>
     <string name="searchdocument">Search Document</string>
     <string name="desc" />
+    <string name="title_activity_test_candelete">test_candelete</string>
 </resources>

@@ -20,7 +20,7 @@
         android:paddingRight="16dp"
         android:weightSum="5">
 
-        <android.inputmethodservice.ExtractEditText
+        <EditText
             android:id="@+id/txt_name_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,8 @@
             android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
             android:layout_weight="1"
-            android:background="@drawable/ic_check_white_48dp" />
+            android:background="@drawable/ic_check_white_48dp"
+            android:onClick="btn_checkNamed_Click"/>
     </LinearLayout>
 
     <LinearLayout
