@@ -53,7 +53,6 @@
 
     </LinearLayout>
 
-
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,6 +67,10 @@
     <ImageView
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:layout_marginTop="225dp"
+        android:layout_marginBottom="225dp"
+        android:layout_marginLeft="158dp"
+        android:layout_marginRight="158dp"
         android:id="@+id/imageDefault"
         android:background="@drawable/ic_photo_size_select_actual_black_48dp"
         android:layout_centerVertical="true"
