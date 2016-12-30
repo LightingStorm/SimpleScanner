@@ -44,6 +44,7 @@ public class NamedActivity extends Activity {
         //Load imageview
         ImageView iv = (ImageView) this.findViewById(R.id.imageViewNamed);
         iv.setImageBitmap(convertToBitmap(Var.iv_tranfer.getBackground()));
+        iv.setRotation(Var.iv_tranfer.getRotation());
 
         if (!createFolderScanner()) {
 

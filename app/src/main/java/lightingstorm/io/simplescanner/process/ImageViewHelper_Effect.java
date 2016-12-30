@@ -1,5 +1,6 @@
 package lightingstorm.io.simplescanner.process;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -11,11 +12,14 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.util.concurrent.ExecutionException;
 
 import lightingstorm.io.simplescanner.EffectActivity;
@@ -28,12 +32,13 @@ import lightingstorm.io.simplescanner.R;
 public class ImageViewHelper_Effect extends AsyncTask<Bitmap,Bitmap,Bitmap>{
 
     private static ImageViewHelper_Effect instance = new ImageViewHelper_Effect();
-    private static int status = -1;
-    private static int rotate_left=0;
-    private static int rotate_right=0;
-    private static Bitmap ori;
-    private static Bitmap gc;
-    private static Bitmap bw;
+    public static int status = -1;
+    public static int rotate_left=0;
+    public static int rotate_right=0;
+    public static Bitmap ori;
+    public static Bitmap gc;
+    public static Bitmap bw;
+    public static Bitmap bw_left;
 
     public ImageViewHelper_Effect(){}
 
@@ -58,17 +63,12 @@ public class ImageViewHelper_Effect extends AsyncTask<Bitmap,Bitmap,Bitmap>{
             paint.setColorFilter(f);
             c.drawBitmap(bmpOriginal, 0, 0, paint);
 
-
-            //return bmpGrayscale;
-
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90*rotate_left + 90*rotate_right);
             status = 1;
-            gc = Bitmap.createBitmap(bmpGrayscale,0,0,width,height,matrix,true);
+            gc = Bitmap.createBitmap(bmpGrayscale,0,0,width,height);
         }
         if (bw==null) {
             Bitmap src  = params[0];
-            double value = 20;
+            double value = 90;
 
             int width = src.getWidth();
             int height = src.getHeight();
@@ -115,12 +115,22 @@ public class ImageViewHelper_Effect extends AsyncTask<Bitmap,Bitmap,Bitmap>{
                     bmOut.setPixel(x, y, Color.argb(A, R, G, B));
                 }
             }
+
             //return bmOut;
 
             Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
+            //matrix.setRotate(-90);
             status = 2;
-            bw = Bitmap.createBitmap(bmOut, 0, 0, width, height, matrix, true);
+            bw = Bitmap.createBitmap(bmOut, 0, 0, width, height);
+            if (width<height)
+            {
+                bw_left = Bitmap.createBitmap(bw,0,0,width,height,matrix,true);
+                bw_left = Bitmap.createScaledBitmap(bw_left,(int)(height*((float)width/height)),width,true);
+                //bw_left = Bitmap.createBitmap(bw,0,0,(int)(height*((float)width/height)),width,matrix,true);
+            }
+
+            else
+                bw_left = Bitmap.createBitmap(bw,0,0,(int)(width*((float)height/width)),height,matrix,true);
             return bw;
         }
         return null;
@@ -158,14 +168,13 @@ public class ImageViewHelper_Effect extends AsyncTask<Bitmap,Bitmap,Bitmap>{
             c.drawBitmap(bmpOriginal, 0, 0, paint);
 
             Matrix matrix = new Matrix();;
-            matrix.setRotate(-90*rotate_left + 90*rotate_right);
+            //matrix.setRotate(-90*rotate_left + 90*rotate_right);
             status = 0;
             ori=Bitmap.createBitmap(out,0,0,width,height,matrix,true);
             return ori;
         }
         else{
             Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
             status = 0;
             return Bitmap.createBitmap(ori, 0, 0, ori.getWidth(), ori.getHeight(), matrix, true);
         }
@@ -173,7 +182,7 @@ public class ImageViewHelper_Effect extends AsyncTask<Bitmap,Bitmap,Bitmap>{
     }
 
     public Bitmap convertToGrayScale(ImageView iv,EffectActivity ea){
-        if (gc==null){
+
             if (original_save==null){
                 original_save = new ImageView(ea);
                 original_save = iv;
@@ -196,31 +205,19 @@ public class ImageViewHelper_Effect extends AsyncTask<Bitmap,Bitmap,Bitmap>{
             paint.setColorFilter(f);
             c.drawBitmap(bmpOriginal, 0, 0, paint);
 
-
-            //return bmpGrayscale;
-
             Matrix matrix = new Matrix();
-            matrix.setRotate(-90*rotate_left + 90*rotate_right);
             status = 1;
             gc = Bitmap.createBitmap(bmpGrayscale,0,0,width,height,matrix,true);
             return gc;
-
-        }
-        else{
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            status=1;
-            return Bitmap.createBitmap(gc, 0, 0, gc.getWidth(), gc.getHeight(), matrix, true);
-        }
     }
 
     public Bitmap convertToBlackAndWhite(ImageView iv , EffectActivity ea){
-    if (bw==null) {
+    if (bw==null || bw_left==null) {
 
         iv.buildDrawingCache(true);
         Bitmap src = iv.getDrawingCache(true);
 
-        double value = 20;
+        double value = 100;
 
         int width = src.getWidth();
         int height = src.getHeight();
@@ -268,81 +265,49 @@ public class ImageViewHelper_Effect extends AsyncTask<Bitmap,Bitmap,Bitmap>{
             }
         }
 
-        //return bmOut;
-
         Matrix matrix = new Matrix();
-        matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
         status = 2;
-        bw = Bitmap.createBitmap(bmOut, 0, 0, width, height, matrix, true);
+        bw = Bitmap.createBitmap(bmOut, 0, 0, width, height);
+        if (width<height)
+            bw_left = Bitmap.createBitmap(bw,0,0,(int)(height*((float)width/height)),width,matrix,true);
+        else
+            bw_left = Bitmap.createBitmap(bw,0,0,(int)(width*((float)height/width)),height,matrix,true);
         return bw;
         }
         else{
             Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            status=2;
-            return Bitmap.createBitmap(bw, 0, 0, bw.getWidth(), bw.getHeight(), matrix, true);
+            int temp = (rotate_right-rotate_left)%4;
+            if (temp%2==0){
+                status=2;
+                Bitmap bitmap = Bitmap.createBitmap(bw, 0, 0, bw.getWidth(), bw.getHeight(), matrix, true);
+                return bitmap;
+            }
+            else {
+                if (temp == 1 || temp == -3){
+                    status = 2;
+                    Bitmap bitmap = Bitmap.createBitmap(bw_left, 0, 0, bw_left.getWidth(),bw_left.getHeight(), matrix, true);
+                    return bitmap;
+
+                }
+                if (temp == -1|| temp == 3){
+                    status = 2;
+                    Bitmap bitmap = Bitmap.createBitmap(bw_left, 0, 0,bw_left.getWidth(),bw_left.getHeight(), matrix, true);
+                    return bitmap;
+                }
+                else{
+                    status = 2;
+                    Bitmap bitmap = Bitmap.createBitmap(bw_left, 0, 0,bw_left.getWidth(),bw_left.getHeight(), matrix, true);
+                    return bitmap;
+                }
+            }
         }
     }
-
-    public Bitmap rotateleftImage(ImageView iv , EffectActivity ea) {
-        if (original_save==null){
-            original_save = new ImageView(ea);
-            original_save = iv;
-        }
-
-
-        rotate_left++;
-        Bitmap out = null;
-        if (status==0){
-
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            return Bitmap.createBitmap(ori, 0, 0, ori.getWidth(), ori.getHeight(), matrix, true);
-        }
-        else if (status==1){
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            return Bitmap.createBitmap(gc, 0, 0, gc.getWidth(), gc.getHeight(), matrix, true);
-        }
-        else if(status==2){
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            return Bitmap.createBitmap(bw, 0, 0, bw.getWidth(), bw.getHeight(), matrix, true);
-        }
-        else
-            out = convertToOriginal(iv,ea);
-        return out;
-    }
-
-    public Bitmap rotaterightImage(ImageView iv , EffectActivity ea) throws ExecutionException, InterruptedException {
-
-        if (original_save==null){
-            original_save = new ImageView(ea);
-            original_save = iv;
-        }
-
-
-        rotate_right++;
-
-        Bitmap out = null;
-        if (status==0){
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            return Bitmap.createBitmap(ori, 0, 0, ori.getWidth(), ori.getHeight(), matrix, true);
-        }
-        else if (status==1){
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            return Bitmap.createBitmap(gc, 0, 0, gc.getWidth(), gc.getHeight(), matrix, true);
-        }
-        else if(status==2){
-            Matrix matrix = new Matrix();
-            matrix.setRotate(-90 * rotate_left + 90 * rotate_right);
-            return Bitmap.createBitmap(bw, 0, 0, bw.getWidth(), bw.getHeight(), matrix, true);
-        }
-        else
-            out = convertToOriginal(iv,ea);
-        return out;
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap bitmapResized = Bitmap.createBitmap(inImage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmapResized.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), bitmapResized, "Title",null);
+        return Uri.parse(path);
     }
 }
 

@@ -140,7 +140,10 @@ public class CropActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Bitmap photo = cr.getCroppedBitmap();
                 Drawable drawable = new BitmapDrawable(photo);
+
+                Var._uri = getImageUri(context,photo);
                 Var.iv_tranfer.setBackground(drawable);
+
                 Intent intent = new Intent(context,EffectActivity.class);
                 startActivity(intent);
  //
