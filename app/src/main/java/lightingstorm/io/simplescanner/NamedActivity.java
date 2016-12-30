@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 //import android.media.Image;
@@ -27,6 +28,7 @@ import java.util.Scanner;
 import android.os.Environment;
 import android.widget.TextView;
 
+import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
 import lightingstorm.io.simplescanner.process.Var;
 
 public class NamedActivity extends Activity {
@@ -85,11 +87,19 @@ public class NamedActivity extends Activity {
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
 
+            int count= 0;
             for (ImageView imgv :
                     Var.list_iv) {
                 Bitmap img = convertToBitmap(imgv.getBackground());
+                // Thêm phần xoay hình
+                Matrix matrix = new Matrix();
+                matrix.postRotate(-90*Var.list_count.get(count).rotate_left + 90 * Var.list_count.get(count).rotate_right);
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(img,img.getHeight(),img.getWidth(),true);
+                Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
+                count++;
+                //
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                img.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
                 Image myImg = Image.getInstance(stream.toByteArray());
                 myImg.setAlignment(Image.MIDDLE);

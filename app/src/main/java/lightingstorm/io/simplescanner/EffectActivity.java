@@ -16,6 +16,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadFactory;
 
+import lightingstorm.io.simplescanner.process.Count;
 import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
 import lightingstorm.io.simplescanner.process.Var;
 
@@ -265,6 +267,10 @@ public class EffectActivity extends Activity {
         Var.iv_tranfer = new ImageView(this);
         Var.iv_tranfer.setBackgroundDrawable(dr);
         Var.iv_tranfer.setRotation(iv.getRotation());
+        Count count = new Count();
+        count.rotate_left = ImageViewHelper_Effect.rotate_left;
+        count.rotate_right =ImageViewHelper_Effect.rotate_right;
+        Var.list_count.add(count);
         Var.list_iv.add(Var.iv_tranfer);
 
         Intent intent = new Intent(this,NamedActivity.class);

@@ -20,5 +20,6 @@ public class Var {
     public static ImageView iv_tranfer = null;
     public static ArrayList<ImageView> list_iv = new ArrayList<>();
     public static Uri _uri=null;
+    public static ArrayList<Count> list_count = new ArrayList<>();
 
 }
