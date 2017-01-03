@@ -149,6 +149,7 @@
         android:layout_marginBottom="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/tuananh" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
 </RelativeLayout>

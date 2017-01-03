@@ -15,8 +15,12 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Uri;
+import android.nfc.Tag;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,9 +28,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadFactory;
 
+import lightingstorm.io.simplescanner.process.Count;
 import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
 import lightingstorm.io.simplescanner.process.Var;
 
@@ -45,6 +51,10 @@ public class EffectActivity extends Activity {
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_effect);
+
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+        //iv.setBackgroundDrawable(Var.iv_tranfer.getBackground());
+        iv.setImageURI(Var._uri);
 
         width=((ImageView)this.findViewById(R.id.imageView)).getWidth();
         height=((ImageView)this.findViewById(R.id.imageView)).getHeight();
@@ -85,6 +95,7 @@ public class EffectActivity extends Activity {
 
         BitmapDrawable ob = new BitmapDrawable(getResources(), (new ImageViewHelper_Effect().convertToOriginal(iv,this)));
         iv.setBackgroundDrawable(ob);
+        iv.setImageURI(null);
 
     }
 
@@ -121,7 +132,8 @@ public class EffectActivity extends Activity {
 
         BitmapDrawable ob = new BitmapDrawable(getResources(), (new ImageViewHelper_Effect().convertToGrayScale(iv,this)));
         iv.setBackgroundDrawable(ob);
-
+        iv.setImageURI(null);
+        //iv.setImageURI((new ImageViewHelper_Effect()).getImageUri(this,(new ImageViewHelper_Effect()).convertToGrayScale(iv,this)));
     }
 
     public void btn_blackwhite_Click(View view) throws InterruptedException, ExecutionException {
@@ -155,9 +167,11 @@ public class EffectActivity extends Activity {
 
         BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).convertToBlackAndWhite(iv,this));
         iv.setBackgroundDrawable(ob);
+        iv.setImageURI(null);
     }
 
     public void btn_rotateleft(View view) throws ExecutionException, InterruptedException {
+
 
         if (!first)
         {
@@ -166,11 +180,13 @@ public class EffectActivity extends Activity {
         }
 
         ImageView iv = (ImageView) this.findViewById(R.id.imageView);
-        //iv.setImageBitmap(new ImageViewHelper_Effect().rotateImage(iv,this,270));
+        ImageViewHelper_Effect.rotate_left++;
+        iv.setRotation(-90*ImageViewHelper_Effect.rotate_left+ 90*ImageViewHelper_Effect.rotate_right);
 
-        BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).rotateleftImage(iv,this));
-        iv.setBackgroundDrawable(null);
-        iv.setBackgroundDrawable(ob);
+        //BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).rotateleftImage(iv,this));
+        //iv.setBackgroundDrawable(null);
+        //iv.setBackgroundDrawable(ob);
+
     }
 
     public void btn_rotateright(View view) throws ExecutionException, InterruptedException {
@@ -179,14 +195,14 @@ public class EffectActivity extends Activity {
             first = !first;
             btn_original_Click(view);
         }
+
         ImageView iv = (ImageView) this.findViewById(R.id.imageView);
-        //iv.setImageBitmap(new ImageViewHelper_Effect().rotateImage(iv,this,270));
+        ImageViewHelper_Effect.rotate_right++;
+        iv.setRotation(-90*ImageViewHelper_Effect.rotate_left+ 90*ImageViewHelper_Effect.rotate_right);
 
-        BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).rotaterightImage(iv,this));
-        iv.setBackgroundDrawable(null);
-        iv.setBackgroundDrawable(ob);
-
-        return;
+        //BitmapDrawable ob = new BitmapDrawable(getResources(),(new ImageViewHelper_Effect()).rotaterightImage(iv,this));
+        //iv.setBackgroundDrawable(null);
+        //iv.setBackgroundDrawable(ob);
     }
 
     public void scaleToA4(View view){
@@ -207,12 +223,31 @@ public class EffectActivity extends Activity {
     }
 
     public void btn_back(View view){
-        Intent goToNextActivity = new Intent(getApplicationContext(), CropActivity.class);
-        startActivity(goToNextActivity);
+        ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+
+        //for (ImageView item:Var.list_iv) {
+        //   if (item.getBackground() == iv.getBackground())
+        //    Log.d("OK","OK");
+        //}
+
+        ImageViewHelper_Effect.bw=null;
+        ImageViewHelper_Effect.bw_left=null;
+        ImageViewHelper_Effect.rotate_left=0;
+        ImageViewHelper_Effect.rotate_right=0;
+        ImageViewHelper_Effect.gc=null;
+        ImageViewHelper_Effect.ori=null;
+        ImageViewHelper_Effect.original_save=null;
+        ImageViewHelper_Effect.status = -1;
+
+        finish();
+
+        //Intent goToNextActivity = new Intent(getApplicationContext(), CropActivity.class);
+        //startActivity(goToNextActivity);
     }
 
     public void btn_checkmark(View view){
         ImageView iv = (ImageView) this.findViewById(R.id.imageView);
+
         if (!isA4) {
             width = iv.getWidth();
             height = iv.getHeight();
@@ -231,14 +266,24 @@ public class EffectActivity extends Activity {
 
         Var.iv_tranfer = new ImageView(this);
         Var.iv_tranfer.setBackgroundDrawable(dr);
+        Var.iv_tranfer.setRotation(iv.getRotation());
+        Count count = new Count();
+        count.rotate_left = ImageViewHelper_Effect.rotate_left;
+        count.rotate_right =ImageViewHelper_Effect.rotate_right;
+        Var.list_count.add(count);
         Var.list_iv.add(Var.iv_tranfer);
 
         Intent intent = new Intent(this,NamedActivity.class);
         startActivity(intent);
-        return;
-        //Bitmap scaledown =
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap bitmapResized = Bitmap.createBitmap(inImage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmapResized.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), bitmapResized, "Title",null);
+        return Uri.parse(path);
+    }
 
 
 
