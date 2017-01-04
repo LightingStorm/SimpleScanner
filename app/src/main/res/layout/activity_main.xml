@@ -29,6 +29,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_weight="3.2"
+            android:background="@android:color/transparent"
             android:text="Simple Scanner"/>
 
         <Button
@@ -39,7 +40,8 @@
             android:layout_gravity="center"
             android:id="@+id/btn_search"
             android:layout_height="40dp"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="4dp"
+            />
 
         <Button
             android:drawableTop="@drawable/ic_refresh_whitesmoke_36dp"
