@@ -119,7 +119,8 @@ public class NamedActivity extends Activity {
         txtFileName = (TextView) findViewById(R.id.txt_name_file);
         NamedActivity.FILE = FOLDER_PDF_SCANNER + File.separator + txtFileName.getText().toString() + ".pdf";
         saveFilePdf();
-        goToPdfView();
+        startActivity( (new Intent(this,MainActivity.class)).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        //goToPdfView();
     }
 
     public  void openFile(){
