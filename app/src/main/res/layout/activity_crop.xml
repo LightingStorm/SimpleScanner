@@ -14,25 +14,27 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_above="@+id/linearLayout"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="1">
 
         <com.isseiaoki.simplecropview.CropImageView
             android:id="@+id/cropImageView"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:layout_width="match_parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:scv_crop_mode="fit_image"
             app:scv_frame_color="@color/colorAccent"
-            app:scv_handle_size="14dp"
-            app:scv_touch_padding="8dp"
+            app:scv_handle_size="10dp"
+            app:scv_handle_color="@color/LightSeaGreen"
+            app:scv_touch_padding="10dp"
             app:scv_handle_show_mode="show_always"
             app:scv_guide_show_mode="show_always"
-            app:scv_min_frame_size="50dp"
+            app:scv_min_frame_size="10dp"
             app:scv_frame_stroke_weight="1dp"
-            app:scv_guide_stroke_weight="1dp"/>
+            app:scv_guide_stroke_weight="1dp" />
 
     </LinearLayout>
 

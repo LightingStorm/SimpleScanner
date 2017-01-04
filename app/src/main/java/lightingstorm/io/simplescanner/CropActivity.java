@@ -3,6 +3,7 @@ package lightingstorm.io.simplescanner;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.AnyRes;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -58,6 +60,8 @@ public class CropActivity extends AppCompatActivity {
     Button rotateRight;
 
     Button btn_com;
+    Button btn_back;
+
     CropCallback cropCallback;
     SaveCallback saveCallback;
     @Override
@@ -76,6 +80,7 @@ public class CropActivity extends AppCompatActivity {
         rotateLeft = (Button)findViewById(R.id.btn_roundleft);
         rotateRight = (Button)findViewById(R.id.btn_roundright);
         btn_com = (Button)findViewById(R.id.btn_complete);
+        btn_back = (Button) findViewById(R.id.btn_back);
 
 
         //imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
@@ -90,10 +95,10 @@ public class CropActivity extends AppCompatActivity {
         imageUri = getImageUri(this, bm);
         //
 
-        cr.setScaleType(ImageView.ScaleType.FIT_XY);
+        /*cr.setScaleType(ImageView.ScaleType.CENTER);*/
         cr.setImageURI(imageUri);
-        //cr.setInitialFrameScale(0.5f);
-        //cr.setScaleType(ImageView.ScaleType.FIT_XY);
+        cr.setInitialFrameScale(0.75f);
+        cr.setScaleType(ImageView.ScaleType.FIT_XY);
 
         /*
         imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
@@ -101,21 +106,27 @@ public class CropActivity extends AppCompatActivity {
                 '/'+ getResources().getResourceTypeName(R.drawable.tuananh)+
                 '/'+ getResources().getResourceEntryName(R.drawable.tuananh));
         */
+
         cr.startLoad(imageUri,new LoadCallback() {
             @Override
             public void onSuccess() {}
 
             @Override
             public void onError() {}}
-            );
-
+        );
 
 
         fill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //chỉnh full set cho crop image
-                cr.setImageURI(imageUri);
+                cr.startLoad(imageUri,new LoadCallback() {
+                    @Override
+                    public void onSuccess() {}
+
+                    @Override
+                    public void onError() {}}
+                );
                 cr.setInitialFrameScale(1.0f);
             }
         });
@@ -153,6 +164,32 @@ public class CropActivity extends AppCompatActivity {
 //                intent.putExtra("ImageCrop",cr.getCroppedBitmap());
 
 //                startActivity(intent);
+            }
+        });
+
+        //back
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alter = new AlertDialog.Builder(CropActivity.this);
+                alter.setMessage("bạn có muốn bỏ ảnh này ?").setCancelable(false).
+                        setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(CropActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog change = alter.create();
+                change.setTitle("Thông Báo");
+                change.show();
             }
         });
 
