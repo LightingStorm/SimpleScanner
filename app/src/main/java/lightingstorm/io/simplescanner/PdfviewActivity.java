@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.ImageView;
 
@@ -30,6 +31,19 @@ public class PdfviewActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         showPdfInWebview();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+
 
     public void showPdf() {
         try {

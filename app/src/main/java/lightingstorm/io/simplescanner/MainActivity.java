@@ -5,29 +5,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.hardware.*;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.ArrayList;
+
 import lightingstorm.io.simplescanner.process.Var;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,16 +34,19 @@ public class MainActivity extends AppCompatActivity {
     public static int count = 0;
     boolean check=false;
     String path ;
+    ArrayList<String> listitem_path = new ArrayList<>();
 
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
 
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+
 
         // Here, we are making a folder named picFolder to store
         // pics taken by the camera using this application.
@@ -55,6 +54,32 @@ public class MainActivity extends AppCompatActivity {
         File newdir = new File(dir);
         newdir.mkdirs();
 
+
+        try {
+            LoadFile_PDF();
+        }catch (Exception e){}
+
+        ListView lv = (ListView) this.findViewById(R.id.listpdf);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String value = listitem_path.get(position);
+
+                File file = new File(value);
+
+                if (file.exists()) {
+                    Uri path = Uri.fromFile(file);
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(path, "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    try {
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.btn_take_photo);
         myFab.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +107,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    void btn_more_CLick(View v){
+        //Load lại danh sách file pdf
+        ListView lv = (ListView) this.findViewById(R.id.listpdf);
+        File[] list_pdf = null;
+        list_pdf = (new File(Environment.getExternalStorageDirectory() + File.separator + "SimpleScanner")).listFiles();
+
+        listitem_path = new ArrayList<>();
+        String[] file_name = new String[list_pdf.length];
+        int count = 0;
+
+        for (File f:
+                list_pdf) {
+            file_name[count] = f.getName();
+            listitem_path.add(f.getAbsolutePath());
+            count ++;
+        }
+        count = 0;
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(),android.R.layout.simple_list_item_1,file_name);
+        lv.setAdapter(adapter);
 
     }
 
@@ -109,6 +154,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void LoadFile_PDF(){
+        ListView lv = (ListView) this.findViewById(R.id.listpdf);
+        File[] list_pdf = null;
+        list_pdf = (new File(Environment.getExternalStorageDirectory() + File.separator + "SimpleScanner")).listFiles();
 
+        listitem_path = new ArrayList<>();
+        String[] file_name = new String[list_pdf.length];
+        int count = 0;
+
+        for (File f:
+                list_pdf) {
+            file_name[count] = f.getName();
+            listitem_path.add(f.getAbsolutePath());
+            count ++;
+        }
+        count = 0;
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(),android.R.layout.simple_list_item_1,file_name);
+        lv.setAdapter(adapter);
+
+    }
+
+    public void showPdfInWebview() {
+
+    }
 
 }

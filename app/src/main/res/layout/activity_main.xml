@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:background="@color/LightSeaGreen"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -42,14 +42,16 @@
             android:layout_marginTop="4dp" />
 
         <Button
-            android:layout_width="40dp"
-            android:drawableTop="@drawable/ic_more_vert_white_24dp"
+            android:drawableTop="@drawable/ic_refresh_whitesmoke_36dp"
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
             android:id="@+id/btn_more"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="4dp"
+            android:onClick="btn_more_CLick"
+            android:layout_marginRight="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
 
     </LinearLayout>
 
@@ -64,16 +66,13 @@
             app:fabSize="normal"
             />
 
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="225dp"
-        android:layout_marginBottom="225dp"
-        android:layout_marginLeft="158dp"
-        android:layout_marginRight="158dp"
-        android:id="@+id/imageDefault"
-        android:background="@drawable/ic_photo_size_select_actual_black_48dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listpdf"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp">
+
+    </ListView>
 
 </android.support.design.widget.CoordinatorLayout>

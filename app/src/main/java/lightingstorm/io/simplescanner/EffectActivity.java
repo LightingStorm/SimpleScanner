@@ -260,7 +260,15 @@ public class EffectActivity extends Activity {
         }
 
         Drawable dr = iv.getBackground();
-        Bitmap b = ((BitmapDrawable)dr).getBitmap();
+        Bitmap b = null;
+        try {
+            b = ((BitmapDrawable)dr).getBitmap();
+        }
+        catch (Exception e){
+            iv.buildDrawingCache(true);
+            b = iv.getDrawingCache(true);
+        }
+
         Bitmap bitmapResized = Bitmap.createScaledBitmap(b, width, height, true);
         dr = new BitmapDrawable(bitmapResized);
 
