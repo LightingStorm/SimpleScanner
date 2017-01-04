@@ -55,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
         newdir.mkdirs();
 
 
-        LoadFile_PDF();
+        try {
+            LoadFile_PDF();
+        }catch (Exception e){}
+
         ListView lv = (ListView) this.findViewById(R.id.listpdf);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -42,15 +42,16 @@
             android:layout_marginTop="4dp" />
 
         <Button
-            android:layout_width="40dp"
-            android:drawableTop="@drawable/ic_more_vert_white_24dp"
+            android:drawableTop="@drawable/ic_refresh_whitesmoke_36dp"
             android:background="@android:color/transparent"
 
             android:layout_gravity="center"
             android:id="@+id/btn_more"
-            android:layout_height="40dp"
             android:layout_marginTop="4dp"
-            android:onClick="btn_more_CLick"/>
+            android:onClick="btn_more_CLick"
+            android:layout_marginRight="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
 
     </LinearLayout>
 
