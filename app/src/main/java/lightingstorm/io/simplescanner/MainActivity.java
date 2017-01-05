@@ -38,17 +38,18 @@ public class MainActivity extends Activity {
     final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/ImgTmp/";
     int TAKE_PHOTO_CODE = 0;
     public static int count = 0;
-    boolean check=false;
-    String path ;
+    boolean check = false;
+    String path;
     ArrayList<String> listitem_path = new ArrayList<>();
 
     String keyString = "";
 
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
@@ -93,7 +94,8 @@ public class MainActivity extends Activity {
 
         try {
             LoadFile_PDF();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
         ListView lv = (ListView) this.findViewById(R.id.listpdf);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -145,7 +147,7 @@ public class MainActivity extends Activity {
 
     }
 
-    void btn_more_CLick(View v){
+    void btn_more_CLick(View v) {
         //Load lại danh sách file pdf
         ListView lv = (ListView) this.findViewById(R.id.listpdf);
         File[] list_pdf = null;
@@ -155,14 +157,14 @@ public class MainActivity extends Activity {
         String[] file_name = new String[list_pdf.length];
         int count = 0;
 
-        for (File f:
+        for (File f :
                 list_pdf) {
             file_name[count] = f.getName();
             listitem_path.add(f.getAbsolutePath());
-            count ++;
+            count++;
         }
         count = 0;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(),android.R.layout.simple_list_item_1,file_name);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(), android.R.layout.simple_list_item_1, file_name);
         lv.setAdapter(adapter);
 
     }
@@ -173,7 +175,7 @@ public class MainActivity extends Activity {
             //Đọc file từ path , chuyển file sang dạng Bitmap
             File image = new File(path);
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+            Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(), bmOptions);
             //delete
             image.deleteOnExit();
 
@@ -184,13 +186,13 @@ public class MainActivity extends Activity {
             Var.iv_tranfer.setBackgroundDrawable(bg);
 
             //Chuyển sang màn hình Crop
-            Intent intent = new Intent(this,CropActivity.class);
+            Intent intent = new Intent(this, CropActivity.class);
             startActivity(intent);
         }
     }
 
 
-    public void LoadFile_PDF(){
+    public void LoadFile_PDF() {
         ListView lv = (ListView) this.findViewById(R.id.listpdf);
         File[] list_pdf = null;
         list_pdf = (new File(Environment.getExternalStorageDirectory() + File.separator + "SimpleScanner")).listFiles();
@@ -199,21 +201,21 @@ public class MainActivity extends Activity {
         String[] file_name = new String[list_pdf.length];
         int count = 0;
 
-        for (File f:
+        for (File f :
                 list_pdf) {
             file_name[count] = f.getName();
             listitem_path.add(f.getAbsolutePath());
-            count ++;
+            count++;
         }
         count = 0;
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(),android.R.layout.simple_list_item_1,file_name);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(), android.R.layout.simple_list_item_1, file_name);
         lv.setAdapter(adapter);
 
     }
 
-    public void btn_about_click(View v){
-        Intent intent = new Intent(this,AboutActivity.class);
+    public void btn_about_click(View v) {
+        Intent intent = new Intent(this, AboutActivity.class);
         startActivity(intent);
     }
 
@@ -221,8 +223,11 @@ public class MainActivity extends Activity {
 
     }
 
-    //Start Trong's add
-    public void btnSearchClick(String keyString){
+    /*
+    * author : trọng
+    * function btnSearchClick: Tìm kiếm tên file.
+    * */
+    public void btnSearchClick(String keyString) {
         //Update list file
 
         ListView lv = (ListView) this.findViewById(R.id.listpdf);
@@ -232,29 +237,28 @@ public class MainActivity extends Activity {
         listitem_path = new ArrayList<>();
 
         int count = 0;
-        for (File f:
+        for (File f :
                 list_pdf) {
-            if(f.getName().toLowerCase().contains(keyString.toLowerCase()) == true) {
-                count ++;
+            if (f.getName().toLowerCase().contains(keyString.toLowerCase()) == true) {
+                count++;
             }
         }
 
         String[] file_name = new String[count];
         count = 0;
 
-        for (File f:
+        for (File f :
                 list_pdf) {
-            if(f.getName().toLowerCase().contains(keyString.toLowerCase()) == true) {
+            if (f.getName().toLowerCase().contains(keyString.toLowerCase()) == true) {
                 file_name[count] = f.getName();
                 listitem_path.add(f.getAbsolutePath());
-                count ++;
+                count++;
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(),android.R.layout.simple_list_item_1,file_name);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(), android.R.layout.simple_list_item_1, file_name);
         lv.setAdapter(adapter);
 
     }
-    //End Trong's add
 
 }
