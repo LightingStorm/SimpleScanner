@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.io.File;
@@ -40,6 +41,8 @@ public class MainActivity extends Activity {
     boolean check=false;
     String path ;
     ArrayList<String> listitem_path = new ArrayList<>();
+
+    String keyString = "";
 
 
     /** Called when the activity is first created. */
@@ -73,6 +76,10 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                //Reload list file
+                keyString = txtSearch.getText().toString();
+                btnSearchClick(keyString);
             }
         });
         //End Trong's edit
@@ -208,5 +215,41 @@ public class MainActivity extends Activity {
     public void showPdfInWebview() {
 
     }
+
+    //Start Trong's add
+    public void btnSearchClick(String keyString){
+        //Update list file
+
+        ListView lv = (ListView) this.findViewById(R.id.listpdf);
+        File[] list_pdf = null;
+        list_pdf = (new File(Environment.getExternalStorageDirectory() + File.separator + "SimpleScanner")).listFiles();
+
+        listitem_path = new ArrayList<>();
+
+        int count = 0;
+        for (File f:
+                list_pdf) {
+            if(f.getName().toLowerCase().contains(keyString.toLowerCase()) == true) {
+                count ++;
+            }
+        }
+
+        String[] file_name = new String[count];
+        count = 0;
+
+        for (File f:
+                list_pdf) {
+            if(f.getName().toLowerCase().contains(keyString.toLowerCase()) == true) {
+                file_name[count] = f.getName();
+                listitem_path.add(f.getAbsolutePath());
+                count ++;
+            }
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(),android.R.layout.simple_list_item_1,file_name);
+        lv.setAdapter(adapter);
+
+    }
+    //End Trong's add
 
 }
