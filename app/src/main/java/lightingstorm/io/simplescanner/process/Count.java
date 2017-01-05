@@ -5,6 +5,6 @@ package lightingstorm.io.simplescanner.process;
  */
 
 public class Count {
-    public int rotate_left=0;
-    public int rotate_right=0;
+    public static int rotate_left=0;
+    public static int rotate_right=0;
 }

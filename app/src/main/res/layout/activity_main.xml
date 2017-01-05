@@ -22,6 +22,7 @@
         android:layout_height="60dp"
         android:id="@+id/linearLayout3">
 
+
         <EditText
             android:id="@+id/txt_search"
             android:layout_width="8dp"
