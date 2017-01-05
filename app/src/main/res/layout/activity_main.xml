@@ -22,6 +22,7 @@
         android:layout_height="60dp"
         android:id="@+id/linearLayout3">
 
+
         <EditText
             android:id="@+id/txt_search"
             android:layout_width="8dp"
@@ -68,12 +69,24 @@
             app:fabSize="normal"
             />
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@android:color/white"
+        android:src="@mipmap/ic_information_24"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="@dimen/fab_margin"
+        android:id="@+id/btn_about"
+        android:onClick="btn_about_click"
+        app:fabSize="normal"
+        />
+
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listpdf"
         android:layout_marginTop="70dp"
-        android:layout_marginBottom="70dp">
+        android:layout_marginBottom="80dp">
 
     </ListView>
 

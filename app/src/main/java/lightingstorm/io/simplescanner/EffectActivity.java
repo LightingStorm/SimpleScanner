@@ -28,6 +28,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.isseiaoki.simplecropview.CropImageView;
+
 import java.io.ByteArrayOutputStream;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadFactory;
@@ -254,9 +256,8 @@ public class EffectActivity extends Activity {
 
         }
         else{
-            double scalepercent = (double)iv.getWidth() / 595.0;
+            height = (int)((double)(595.0* iv.getHeight())/iv.getWidth());
             width = 595;
-            height = (int) ((double)iv.getHeight()/scalepercent);
         }
 
         Drawable dr = iv.getBackground();
@@ -269,17 +270,19 @@ public class EffectActivity extends Activity {
             b = iv.getDrawingCache(true);
         }
 
-        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, width, height, true);
+        Bitmap bitmapResized = Bitmap.createScaledBitmap(b, width, height,false);
         dr = new BitmapDrawable(bitmapResized);
 
         Var.iv_tranfer = new ImageView(this);
-        Var.iv_tranfer.setBackgroundDrawable(dr);
+        //Var.iv_tranfer.setBackgroundDrawable(dr);
+        Var.iv_tranfer.setImageURI(getImageUri(this,bitmapResized));
+        Var._uri = getImageUri(this,bitmapResized);
         Var.iv_tranfer.setRotation(iv.getRotation());
         Count count = new Count();
-        count.rotate_left = ImageViewHelper_Effect.rotate_left;
-        count.rotate_right =ImageViewHelper_Effect.rotate_right;
-        Var.list_count.add(count);
-        Var.list_iv.add(Var.iv_tranfer);
+        Count.rotate_left = ImageViewHelper_Effect.rotate_left;
+        Count.rotate_right =ImageViewHelper_Effect.rotate_right;
+        //Var.list_count.add(count);
+        //Var.list_iv.add(Var.iv_tranfer);
 
         Intent intent = new Intent(this,NamedActivity.class);
         startActivity(intent);

@@ -212,6 +212,11 @@ public class MainActivity extends Activity {
 
     }
 
+    public void btn_about_click(View v){
+        Intent intent = new Intent(this,AboutActivity.class);
+        startActivity(intent);
+    }
+
     public void showPdfInWebview() {
 
     }

@@ -1,6 +1,7 @@
 package lightingstorm.io.simplescanner;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,8 +9,10 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 //import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -28,6 +31,7 @@ import java.util.Scanner;
 import android.os.Environment;
 import android.widget.TextView;
 
+import lightingstorm.io.simplescanner.process.Count;
 import lightingstorm.io.simplescanner.process.ImageViewHelper_Effect;
 import lightingstorm.io.simplescanner.process.Var;
 
@@ -45,7 +49,8 @@ public class NamedActivity extends Activity {
 
         //Load imageview
         ImageView iv = (ImageView) this.findViewById(R.id.imageViewNamed);
-        iv.setImageBitmap(convertToBitmap(Var.iv_tranfer.getBackground()));
+        //Var.iv_tranfer.buildDrawingCache(true);
+        iv.setImageURI(Var._uri);
         iv.setRotation(Var.iv_tranfer.getRotation());
 
         if (!createFolderScanner()) {
@@ -88,26 +93,32 @@ public class NamedActivity extends Activity {
             document.open();
 
             int count= 0;
-            for (ImageView imgv :
-                    Var.list_iv) {
-                Bitmap img = convertToBitmap(imgv.getBackground());
-                // Thêm phần xoay hình
-                Matrix matrix = new Matrix();
-                matrix.postRotate(-90*Var.list_count.get(count).rotate_left + 90 * Var.list_count.get(count).rotate_right);
-                Bitmap scaledBitmap = Bitmap.createScaledBitmap(img,img.getHeight(),img.getWidth(),true);
-                Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
-                count++;
-                //
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            //for (ImageView imgv :
+            //      Var.list_iv) {
+            ImageView iv = (ImageView) this.findViewById(R.id.imageViewNamed);
+            //Var.iv_tranfer.buildDrawingCache(true);
+            iv.buildDrawingCache(true);
+            Bitmap img = iv.getDrawingCache(true);
+            // Thêm phần xoay hình
+            Matrix matrix = new Matrix();
+            matrix.postRotate(-90* Count.rotate_left + 90 * Count.rotate_right);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(img,iv.getWidth(),iv.getHeight(),true);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, iv.getWidth(), iv.getHeight(), matrix, true);
+            count++;
+            //
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
-                Image myImg = Image.getInstance(stream.toByteArray());
-                myImg.setAlignment(Image.MIDDLE);
+            Image myImg = Image.getInstance(stream.toByteArray());
+            myImg.setAlignment(Image.MIDDLE);
 
-                document.add(myImg);
-            }
-
+            document.add(myImg);
+            //}
+            Count.rotate_left=0;
+            Count.rotate_right=0;
+            setNull();
             document.close();
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,4 +148,22 @@ public class NamedActivity extends Activity {
         
     }
 
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        Bitmap bitmapResized = Bitmap.createBitmap(inImage);
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmapResized.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), bitmapResized, "Title",null);
+        return Uri.parse(path);
+    }
+
+    public void setNull(){
+        ImageViewHelper_Effect.bw=null;
+        ImageViewHelper_Effect.bw_left=null;
+        ImageViewHelper_Effect.rotate_left=0;
+        ImageViewHelper_Effect.rotate_right=0;
+        ImageViewHelper_Effect.gc=null;
+        ImageViewHelper_Effect.ori=null;
+        ImageViewHelper_Effect.original_save=null;
+        ImageViewHelper_Effect.status = -1;
+    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="lightingstorm.io.simplescanner.AboutActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/MidnightExpress"
+        android:weightSum="2"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="false">
+
+        <Button
+            android:layout_width="40dp"
+            android:drawableTop="@drawable/ic_arrow_back_white_24dp"
+            android:background="@android:color/transparent"
+            android:onClick="btn_back_click"
+            android:layout_gravity="center"
+            android:id="@+id/button"
+            android:layout_height="40dp"
+            android:layout_weight="0.1"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:text="About"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="@color/LightSeaGreen"
+            android:textSize="18dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:lines="4"
+        android:maxLines="10"
+        android:text="License: GPL-3.0 \nVersion: 1.0 \nCopyright &#169; 2017 \nLightingStorm. All rights reserved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="8dp" />
+
+</RelativeLayout>
