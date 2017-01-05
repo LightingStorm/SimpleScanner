@@ -11,12 +11,17 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -26,7 +31,7 @@ import java.util.ArrayList;
 
 import lightingstorm.io.simplescanner.process.Var;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private Context context;
     final String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/ImgTmp/";
@@ -47,6 +52,30 @@ public class MainActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
+
+        //Start Trong's edit
+        //fix UI
+        final EditText txtSearch = (EditText) this.findViewById(R.id.txt_search);
+        txtSearch.setFocusableInTouchMode(false);
+
+        txtSearch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                txtSearch.setFocusableInTouchMode(true);
+                txtSearch.setText("");
+                txtSearch.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(txtSearch, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
+        Button searchButton = (Button) findViewById(R.id.btn_search);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+        //End Trong's edit
 
         // Here, we are making a folder named picFolder to store
         // pics taken by the camera using this application.
