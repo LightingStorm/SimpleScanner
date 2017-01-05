@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
     ArrayList<String> listitem_path = new ArrayList<>();
 
     String keyString = "";
+    public static File FOLDER_PDF_SCANNER;
 
 
     /**
@@ -56,7 +57,8 @@ public class MainActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-
+        //Create SimpleScanner Folder
+        createFolderScanner();
         //Start Trong's edit
         //fix UI
         final EditText txtSearch = (EditText) this.findViewById(R.id.txt_search);
@@ -83,6 +85,7 @@ public class MainActivity extends Activity {
                 btnSearchClick(keyString);
             }
         });
+
         //End Trong's edit
 
         // Here, we are making a folder named picFolder to store
@@ -259,6 +262,17 @@ public class MainActivity extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(lv.getContext(), android.R.layout.simple_list_item_1, file_name);
         lv.setAdapter(adapter);
 
+    }
+
+    //Create folder simpleScanner: folder chứa file pdf.
+    public static Boolean createFolderScanner() {
+        MainActivity.FOLDER_PDF_SCANNER = new File(Environment.getExternalStorageDirectory() +
+                File.separator + "SimpleScanner");
+        boolean success = true;
+        if (!FOLDER_PDF_SCANNER.exists()) {
+            success = FOLDER_PDF_SCANNER.mkdirs();
+        }
+        return success;
     }
 
 }
